@@ -1,10 +1,10 @@
-# 🍔 Food Ordering System — JDBC Console App
+# Food Ordering System — JDBC Console App
 
 A full **CRUD** food ordering system built in Java using JDBC and PreparedStatements.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 FoodOrderingSystem/
@@ -25,7 +25,7 @@ FoodOrderingSystem/
 
 ---
 
-## ⚙️ Setup Steps
+## Setup Steps
 
 ### 1. MySQL Database
 Open MySQL Workbench (or terminal) and run:
@@ -49,7 +49,7 @@ Place the JAR in your project folder, then compile with it on the classpath.
 
 ---
 
-## ▶️ Compile & Run
+## Compile & Run
 
 From the `src/` folder:
 
@@ -65,7 +65,7 @@ java -cp ".;../mysql-connector-j-8.x.xx.jar" FoodOrderingSystem
 
 ---
 
-## ✅ Features (Full CRUD)
+## Features (Full CRUD)
 
 | Operation | Feature                    |
 |-----------|----------------------------|
@@ -76,7 +76,7 @@ java -cp ".;../mysql-connector-j-8.x.xx.jar" FoodOrderingSystem
 
 ---
 
-## 🗄️ Database Schema
+## Database Schema
 
 ```
 customers          menu               orders
@@ -90,10 +90,10 @@ name               item_name          customer_id (FK)
 
 ---
 
-## 📌 Notes for GUI Migration (Next Step)
+## Notes for GUI Migration (Next Step)
 - All business logic is inside DAOs — zero changes needed when adding GUI
 - Just wire your JButtons to call the same DAO methods
 - Consider making DAOs return result objects/messages instead of printing
 
 ---
-*Built with Java + JDBC + MySQL | PreparedStatements throughout*
+*Built with Java + JDBC + MySQL*
