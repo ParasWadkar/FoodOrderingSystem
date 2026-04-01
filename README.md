@@ -94,7 +94,7 @@ java -cp ".:lib/mysql-connector-j-8.x.xx.jar:out" FoodOrderingSystem
 
 ---
 
-## 🗄️ Database Schema
+## Database Schema
 
 ```
 customers          menu               orders
