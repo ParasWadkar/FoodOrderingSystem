@@ -8,7 +8,12 @@ A full **CRUD** food ordering system built in Java using JDBC and PreparedStatem
 
 ```
 FoodOrderingSystem/
+├── .gitignore                         ← Keeps credentials & build files off GitHub
+├── db.properties                      ← Your DB credentials (never push this)
+├── db.properties.example              ← Safe template for others to copy
 ├── setup.sql                          ← Run this first in MySQL
+├── lib/
+│   └── mysql-connector-j-8.x.xx.jar  ← MySQL JDBC driver (download separately)
 └── src/
     ├── FoodOrderingSystem.java        ← Main entry point (menu-driven UI)
     ├── db/
@@ -35,33 +40,46 @@ source setup.sql
 This creates the database, 3 tables, and sample data.
 
 ### 2. Configure DB Credentials
-Open `src/db/DBConnection.java` and set:
-```java
-private static final String DB_URL  = "jdbc:mysql://localhost:3306/food_ordering_db";
-private static final String USER     = "root";      // ← your username
-private static final String PASSWORD = "yourpass";  // ← your password
+**Never hardcode your password in Java files.** Instead, copy the example credentials file:
+```bash
+cp db.properties.example db.properties
 ```
+Then open `db.properties` and fill in your details:
+```properties
+db.url=jdbc:mysql://localhost:3306/food_ordering_db
+db.user=root
+db.password=YOUR_PASSWORD_HERE
+```
+`DBConnection.java` reads from this file automatically. `db.properties` is listed in `.gitignore` so it will never be pushed to GitHub.
 
-### 3. Add MySQL Connector/J to classpath
+### 3. Add MySQL Connector/J
 Download from: https://dev.mysql.com/downloads/connector/j/
 
-Place the JAR in your project folder, then compile with it on the classpath.
+Select **Platform Independent**, download the ZIP, unzip it, and place the `.jar` file inside the `lib/` folder in your project root.
 
 ---
 
 ## Compile & Run
 
-From the `src/` folder:
+Always run these commands from the **project root** (`FoodOrderingSystem/`), not from inside `src/`. This is important because Java needs to find `db.properties` which lives in the root folder.
 
 ```bash
-# Compile
-javac -cp ".;../mysql-connector-j-8.x.xx.jar" db/*.java model/*.java dao/*.java FoodOrderingSystem.java
+# Compile (Windows)
+javac -cp ".;lib/mysql-connector-j-8.x.xx.jar" -d out src/db/*.java src/model/*.java src/dao/*.java src/FoodOrderingSystem.java
 
-# Run
-java -cp ".;../mysql-connector-j-8.x.xx.jar" FoodOrderingSystem
+# Run (Windows)
+java -cp ".;lib/mysql-connector-j-8.x.xx.jar;out" FoodOrderingSystem
 ```
 
-> On Mac/Linux replace `;` with `:`
+```bash
+# Compile (Mac/Linux)
+javac -cp ".:lib/mysql-connector-j-8.x.xx.jar" -d out src/db/*.java src/model/*.java src/dao/*.java src/FoodOrderingSystem.java
+
+# Run (Mac/Linux)
+java -cp ".:lib/mysql-connector-j-8.x.xx.jar:out" FoodOrderingSystem
+```
+
+> Replace `8.x.xx` with the actual version number of your JAR file.
 
 ---
 
@@ -76,7 +94,7 @@ java -cp ".;../mysql-connector-j-8.x.xx.jar" FoodOrderingSystem
 
 ---
 
-## Database Schema
+## 🗄️ Database Schema
 
 ```
 customers          menu               orders
@@ -96,4 +114,4 @@ name               item_name          customer_id (FK)
 - Consider making DAOs return result objects/messages instead of printing
 
 ---
-*Built with Java + JDBC + MySQL*
+*Built with Java + JDBC + MySQL | PreparedStatements throughout*
